@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using FreshMvvm;
+using B4.PE3.HuygheK.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace B4.PE3.HuygheK
@@ -11,7 +13,8 @@ namespace B4.PE3.HuygheK
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            var mainview = FreshPageModelResolver.ResolvePageModel<MainViewModel>();
+            MainPage = new FreshNavigationContainer(mainview);
         }
 
         protected override void OnStart()
