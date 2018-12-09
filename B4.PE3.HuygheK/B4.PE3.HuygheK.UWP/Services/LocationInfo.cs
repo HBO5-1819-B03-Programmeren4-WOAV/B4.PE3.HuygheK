@@ -14,11 +14,15 @@ namespace B4.PE3.HuygheK.UWP.Services
 {
     internal class UwpLocationInfoService : ILocationInfoServices
     {
+       
+
+
+
         public string Tekst { get; private set; }
         public string Latitude { get; private set; }
         public string Longitude { get; private set; }
-        public string lat = "_";
-        public string lon = "_";
+        public string lat = "geenToegang";
+        public string lon = "geenToegang";
         
         public UwpLocationInfoService()
         {
@@ -76,6 +80,7 @@ namespace B4.PE3.HuygheK.UWP.Services
             }
               
         }
-       
+        
+
     }
 }
