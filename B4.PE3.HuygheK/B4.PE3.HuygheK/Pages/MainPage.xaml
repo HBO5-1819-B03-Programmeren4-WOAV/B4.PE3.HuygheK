@@ -4,7 +4,7 @@
              x:Class="B4.PE3.HuygheK.Pages.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Show Device Info" Command="{Binding LocationInfoPageCommand}"></Button>
+            <Button Text="Haal locatie op" Command="{Binding LocationInfoPageCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

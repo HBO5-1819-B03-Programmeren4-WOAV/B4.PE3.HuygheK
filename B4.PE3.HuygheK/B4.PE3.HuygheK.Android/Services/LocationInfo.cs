@@ -23,7 +23,8 @@ namespace B4.PE3.HuygheK.Droid.Services
         LocationManager locationManager;
         public string lon = "_";
         public string lat = "_";
-        
+        public string tijd = DateTime.Now.ToUniversalTime().ToString("r");
+
         public DroidLocationInfoService()
         {
             
@@ -44,7 +45,8 @@ namespace B4.PE3.HuygheK.Droid.Services
             {
                 Tekst = "",
                 Latitude = lat,
-                Longitude = lon
+                Longitude = lon,
+                Time = tijd
                
             };
                 
