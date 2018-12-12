@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(B4.PE3.HuygheK.UWP.Services.UwpLocationInfoService))]
@@ -28,12 +30,52 @@ namespace B4.PE3.HuygheK.UWP.Services
         
         public UwpLocationInfoService()
         {
-            GetLocation();
+           // GetLocation();
             
 
         }
+        public async void Locatie()
+        {
+            try
+            {
+                var location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location != null)
+                {
+                    Longitude = location.Longitude.ToString();
+                    lon = location.Longitude.ToString();
+                    lat = location.Latitude.ToString();
+                    // "Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {               // Handle not supported on device exception
+                lon = "geenGPS";
+                lat = "geenGPS";
+            }
+            catch (PermissionException pEx)
+            {
+                lon = "geenToegang";
+                lat = "geenToegang";
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                lon = "fout";
+                lat = "fout";
+            }
+        }
         public LocationInfo GetLocationInfo()
         {
+            // GetLocation();
+            Locatie();
+            Thread.Sleep(5000);            
+            if (lon == "_")
+            {
+                Thread.Sleep(5000);
+            }
+                        
             LocationInfo info = new LocationInfo
             {
                 Tekst = "",
@@ -41,12 +83,15 @@ namespace B4.PE3.HuygheK.UWP.Services
                 Longitude = lon,
                 Time = tijd 
             };
-            GetLocation();
+           
+           
             info.Latitude = lat;
             info.Longitude = lon;
-           
+           // Thread.Sleep(500);
             return info;
         }
+
+
 
         async void GetLocation()
         {

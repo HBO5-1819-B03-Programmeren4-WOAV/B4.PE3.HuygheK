@@ -9,7 +9,9 @@
                 HorizontalOptions="CenterAndExpand" />
             <TableView>
                 <TableSection Title="Locatie Informatie">
-                    <TextCell Text="{Binding LocationInfo.Tekst }" Detail="Locatienaam" />
+                    
+                    
+                    <TextCell Text="{Binding LocationInfo.Tekst}" Detail="Tekst" />
                     <TextCell Text="{Binding LocationInfo.Latitude}" Detail="Latitude" />
                     <TextCell Text="{Binding LocationInfo.Longitude}" Detail="Longitude" />
                     <TextCell Text="{Binding LocationInfo.Time}" Detail="Tijd" />

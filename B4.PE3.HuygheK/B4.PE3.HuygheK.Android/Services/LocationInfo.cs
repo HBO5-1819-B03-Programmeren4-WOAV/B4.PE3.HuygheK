@@ -14,6 +14,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using B4.PE3.HuygheK.Services;
 using Android.Content;
+using Xamarin.Essentials;
 
 [assembly: Dependency(typeof(B4.PE3.HuygheK.Droid.Services.DroidLocationInfoService))]
 namespace B4.PE3.HuygheK.Droid.Services
@@ -55,34 +56,65 @@ namespace B4.PE3.HuygheK.Droid.Services
             
             return info;
         }
-
-        public void Locatie()
+        public async void Locatie()
         {
-            //locationManager = (LocationManager)GetSystemService(LocationService);
-            //     LocationManager locationManager =
-            //  (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-            // locationManager = GetSystemService(LocationService) as LocationManager;
-            
-            var criteria = new Criteria { PowerRequirement = Power.Medium };
             try
             {
-                var bestProvider = locationManager.GetBestProvider(criteria, true);
-                var location = locationManager.GetLastKnownLocation(bestProvider);
+                var location = await Geolocation.GetLastKnownLocationAsync();
 
-               
-                lon = location.Longitude.ToString();
-                lat = location.Latitude.ToString();
+                if (location != null)
+                {
+                    
+                    lon = location.Longitude.ToString();
+                    lat = location.Latitude.ToString();
+                    // "Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                }
             }
-            catch
+            catch (FeatureNotSupportedException fnsEx)
+            {               // Handle not supported on device exception
+                lon = "geenGPS";
+                lat = "geenGPS";
+            }
+            catch (PermissionException pEx)
             {
-
-                lat = "No location";
-                lon = "No location";
-            };
-
-
-
+                lon = "geenToegang";
+                lat = "geenToegang";
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                lon = "fout";
+                lat = "fout";
+            }
         }
+        //public void Locatie()
+        //{
+        //    locationManager = (LocationManager)GetSystemService(LocationService);
+        //    LocationManager locationManager =
+        // (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        //    locationManager = GetSystemService(LocationService) as LocationManager;
+
+        //    var criteria = new Criteria { PowerRequirement = Power.Medium };
+        //    try
+        //    {
+        //        var bestProvider = locationManager.GetBestProvider(criteria, true);
+        //        var location = locationManager.GetLastKnownLocation(bestProvider);
+
+
+        //        lon = location.Longitude.ToString();
+        //        lat = location.Latitude.ToString();
+        //    }
+        //    catch
+        //    {
+
+        //        lat = "No location";
+        //        lon = "No location";
+        //    };
+
+
+
+        //}
         
     }
 }
